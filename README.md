@@ -5,9 +5,8 @@ A simple wrapper for DocumentFormat.OpenXml word processing documents (MS Word a
 Allows easier creation of OpenXML wordprocessing documents using a fluent API. This is a .Net Standard 2.0 library and depends on the DocumentFormat.OpenXml library. This library was inspired by the [ReportDotNet](https://github.com/mifopen/ReportDotNet) project on Github.
 
 ## Dependencies
-.NETStandard 2.0
-
-[DocumentFormat.OpenXml (>= 2.9.1)](https://www.nuget.org/packages/DocumentFormat.OpenXml/)
+1. .NETStandard 2.0
+2. [DocumentFormat.OpenXml (>= 2.9.1)](https://www.nuget.org/packages/DocumentFormat.OpenXml/)
 
 ## Usage
 The library exposes an abstract class `WordDocument` that implements fluent methods to assist in creating sections, parargraphs, checkboxes and tables (with rows and cells).
@@ -17,10 +16,10 @@ There is a lot of functionality that must still be added, but this library is al
 ### Getting started
 Available on [nuget.org](https://www.nuget.org/packages/Frontforge.OpenDocx.Core/)
 
-#### Installing using Nuget
+#### Install using Nuget
 `Install-Package Frontforge.OpenDocx.Core`
 
-#### Installing .Net CLI
+#### Install using .Net CLI
 `dotnet add package Frontforge.OpenDocx.Core`
 
 #### Creating a basic wordprocessing document
@@ -29,7 +28,6 @@ See the `/examples` folder for more complete examples.
 ```c#
 public class MyDocument : WordDocument 
 {
-
     public void Create(string fileName) {
         // create a new section and set section properties
         var section = Section()
@@ -53,20 +51,12 @@ public class MyDocument : WordDocument
 
         tbl.Add(
             Row(
-                Cell(
-                    Par("Cell 0, 0").Bold();
-                ), 
-                Cell(
-                    Par("Cell 0, 1");
-                )
+                Cell(Par("Cell 0, 0").Bold()), 
+                Cell(Par("Cell 0, 1"))
             ),
             Row(
-                Cell(
-                    Par("Cell 1, 0").Bold();
-                ),
-                Cell(
-                    Par("Cell 1, 1");
-                )
+                Cell(Par("Cell 1, 0").Bold()),
+                Cell(Par("Cell 1, 1"))
             )
         );
 
