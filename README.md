@@ -82,7 +82,7 @@ See the `/examples` folder for more complete examples.
         #endregion
     }
 ```
-This document can be creating and save to disk, or any other `Stream` as follows:
+This document can be created and saved to disk, or any other `Stream` as follows:
 
 ```c#
         // save to file
