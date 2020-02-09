@@ -12,11 +12,25 @@ namespace Frontforge.OpenDocx.Core.Builders
 
         #endregion
 
+        #region constructors
+
+        internal TextContentBuilder(string text)
+        {
+            _config.Value = text;
+        }
+
+        #endregion
+
         #region implementation
 
         public static implicit operator TextContent(TextContentBuilder builder)
         {
             return new TextContent(builder._config);
+        }
+
+        public TextContentBuilder FontSize(Unit fontSize)
+        {
+            return this.Chain(p => p._config.FontSize = fontSize);
         }
 
         public TextContentBuilder Bold(bool? bold = true)
@@ -32,15 +46,6 @@ namespace Frontforge.OpenDocx.Core.Builders
         public TextContentBuilder Underline(UnderlineValues? line = UnderlineValues.Single)
         {
             return this.Chain(p => p._config.Underline = line);
-        }
-
-        #endregion
-
-        #region constructors
-
-        internal TextContentBuilder(string text)
-        {
-            _config.Value = text;
         }
 
         #endregion

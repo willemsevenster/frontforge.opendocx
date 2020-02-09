@@ -12,6 +12,15 @@ namespace Frontforge.OpenDocx.Core.Models
 
         #endregion
 
+        #region constructors
+
+        internal Paragraph(ParagraphConfig config)
+        {
+            _config = config;
+        }
+
+        #endregion
+
         #region implementation
 
         #region members
@@ -32,15 +41,6 @@ namespace Frontforge.OpenDocx.Core.Models
         }
 
         #endregion
-
-        #endregion
-
-        #region constructors
-
-        internal Paragraph(ParagraphConfig config)
-        {
-            _config = config;
-        }
 
         #endregion
     }

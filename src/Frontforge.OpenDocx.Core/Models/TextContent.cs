@@ -2,7 +2,12 @@
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Frontforge.OpenDocx.Core.ModelConfiguration;
-
+using Break = DocumentFormat.OpenXml.Wordprocessing.Break;
+using Run = DocumentFormat.OpenXml.Wordprocessing.Run;
+using RunProperties = DocumentFormat.OpenXml.Wordprocessing.RunProperties;
+using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
+using Underline = DocumentFormat.OpenXml.Wordprocessing.Underline;
+using A14 = DocumentFormat.OpenXml.Office2010.Drawing;
 namespace Frontforge.OpenDocx.Core.Models
 {
     public class TextContent
@@ -15,11 +20,6 @@ namespace Frontforge.OpenDocx.Core.Models
         #endregion
 
         #region implementation
-
-        //public static implicit operator TextContent(string text)
-        //{
-        //    return new TextContent {Value = text};
-        //}
 
         public static implicit operator string(TextContent content)
         {
@@ -45,6 +45,11 @@ namespace Frontforge.OpenDocx.Core.Models
                 run.RunProperties.Underline = new Underline {Val = _config.Underline};
             }
 
+            if (_config.FontSize != null)
+            {
+                run.RunProperties.FontSize = new FontSize{Val = _config.FontSize};
+            }
+
             if (!string.IsNullOrEmpty(this))
             {
                 var lines = ((string) this).Split(new[] {"\r\n", "\n"}, StringSplitOptions.None).AsIndexed();
@@ -61,6 +66,11 @@ namespace Frontforge.OpenDocx.Core.Models
                         run.AppendChild(new Text(line) {Space = SpaceProcessingModeValues.Preserve});
                     }
                 }
+            }
+
+            if (_config.Value == null)
+            {
+                run.AppendChild(new Break());
             }
 
             return run;
@@ -82,8 +92,5 @@ namespace Frontforge.OpenDocx.Core.Models
 
         #endregion
 
-        #region properties
-
-        #endregion
     }
 }

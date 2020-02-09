@@ -13,19 +13,17 @@ namespace Frontforge.OpenDocx.Core.Builders
 
         #endregion
 
+        #region constructors
+
+        internal CellBuilder() { }
+
+        #endregion
+
         #region implementation
 
         internal static CellBuilder EmptyCell()
         {
             return new CellBuilder().Add(new ParagraphBuilder().SpacingBefore(0).SpacingAfter(0));
-        }
-
-        #endregion
-
-        #region constructors
-
-        internal CellBuilder()
-        {
         }
 
         #endregion
@@ -47,40 +45,62 @@ namespace Frontforge.OpenDocx.Core.Builders
             return this.Chain(p => p._config.Width = new Unit(value, type));
         }
 
-        public CellBuilder TopBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single)
+        public CellBuilder BgColor(string color, ShadingPatternValues pattern = ShadingPatternValues.Percent50)
+        {
+            return this.Chain(p =>
+            {
+                p._config.BackgroundColor.Color = color;
+                p._config.BackgroundColor.Fill = color;
+                p._config.BackgroundColor.Val = pattern;
+            });
+        }
+
+        public CellBuilder TopBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single, string color = null)
         {
             return this.Chain(p => p._config.Borders.TopBorder = new TopBorder
             {
                 Val = lineStyle,
-                Size = size
+                Size = size,
+                Color = color
             });
         }
 
-        public CellBuilder LeftBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single)
+        public CellBuilder LeftBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single, string color = null)
         {
             return this.Chain(p => p._config.Borders.LeftBorder = new LeftBorder
             {
                 Val = lineStyle,
-                Size = size
+                Size = size,
+                Color = color
             });
         }
 
-        public CellBuilder RightBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single)
+        public CellBuilder RightBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single, string color = null)
         {
             return this.Chain(p => p._config.Borders.RightBorder = new RightBorder
             {
                 Val = lineStyle,
-                Size = size
+                Size = size,
+                Color = color
             });
         }
 
-        public CellBuilder BottomBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single)
+        public CellBuilder BottomBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single, string color = null)
         {
             return this.Chain(p => p._config.Borders.BottomBorder = new BottomBorder
             {
                 Val = lineStyle,
-                Size = size
+                Size = size,
+                Color = color
             });
+        }
+
+        public CellBuilder AllBorders(uint size = 1U, BorderValues lineStyle = BorderValues.Single, string color = null)
+        {
+            return this.Chain(p => p.TopBorder(size, lineStyle, color)
+                .LeftBorder(size, lineStyle, color)
+                .RightBorder(size, lineStyle, color)
+                .BottomBorder(size, lineStyle, color));
         }
 
         public CellBuilder VAlignTop()

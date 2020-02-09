@@ -13,6 +13,12 @@ namespace Frontforge.OpenDocx.Core.Builders
 
         #endregion
 
+        #region constructors
+
+        internal ParagraphBuilder() { }
+
+        #endregion
+
         #region implementation
 
         public static implicit operator Paragraph(ParagraphBuilder builder)
@@ -25,7 +31,23 @@ namespace Frontforge.OpenDocx.Core.Builders
             return this.Chain(p => p._config.Contents.Add(new TextContent(text)));
         }
 
+        public ParagraphBuilder Add(params ContentElement[] contents)
+        {
+            return this.Chain(p =>
+            {
+                foreach (var element in contents)
+                {
+                    p._config.Contents.Add(element);
+                }
+            });
+        }
+
         public ParagraphBuilder Add(TextContent content)
+        {
+            return this.Chain(p => p._config.Contents.Add(content));
+        }
+
+        public ParagraphBuilder Add(ImageContent content)
         {
             return this.Chain(p => p._config.Contents.Add(content));
         }
@@ -78,14 +100,6 @@ namespace Frontforge.OpenDocx.Core.Builders
 
         #endregion
 
-        #region constructors
-
-        internal ParagraphBuilder()
-        {
-        }
-
-        #endregion
-
         #region members
 
         public ParagraphBuilder SpacingBefore(Unit value)
@@ -107,6 +121,24 @@ namespace Frontforge.OpenDocx.Core.Builders
             });
         }
 
+        public ParagraphBuilder LeftBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single)
+        {
+            return this.Chain(p => p._config.Borders.LeftBorder = new LeftBorder
+            {
+                Val = lineStyle,
+                Size = size
+            });
+        }
+
+        public ParagraphBuilder RightBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single)
+        {
+            return this.Chain(p => p._config.Borders.RightBorder = new RightBorder
+            {
+                Val = lineStyle,
+                Size = size
+            });
+        }
+
         public ParagraphBuilder BottomBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single)
         {
             return this.Chain(p => p._config.Borders.BottomBorder = new BottomBorder
@@ -114,6 +146,15 @@ namespace Frontforge.OpenDocx.Core.Builders
                 Val = lineStyle,
                 Size = size
             });
+        }
+
+        public ParagraphBuilder AllBorders(uint size = 1U, BorderValues lineStyle = BorderValues.Single)
+        {
+            TopBorder(size, lineStyle);
+            LeftBorder(size, lineStyle);
+            RightBorder(size, lineStyle);
+            BottomBorder(size, lineStyle);
+            return this;
         }
 
         #endregion

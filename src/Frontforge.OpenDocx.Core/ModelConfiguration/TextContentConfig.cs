@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Frontforge.OpenDocx.Core.Models;
 
 namespace Frontforge.OpenDocx.Core.ModelConfiguration
 {
@@ -13,6 +14,8 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
         public UnderlineValues? Underline { get; set; }
 
         public string Value { get; set; }
+
+        public Unit FontSize { get; set; }
 
         #endregion
     }

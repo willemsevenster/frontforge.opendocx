@@ -28,6 +28,7 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
         public List<IContent> Contents { get; } = new List<IContent>();
 
         public ParagraphBorders Borders { get; } = new ParagraphBorders();
+
         public bool? Bullets { get; set; }
 
         #endregion
@@ -112,6 +113,11 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
                 if (content is TextContent text)
                 {
                     yield return text.GetRun(runProperties);
+                }
+
+                if (content is ImageContent img)
+                {
+                    yield return img.GetRun(runProperties);
                 }
 
                 if (content is CheckboxControl checkbox)

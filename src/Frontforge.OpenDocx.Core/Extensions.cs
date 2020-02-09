@@ -1,5 +1,6 @@
 ﻿using System;
 using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Frontforge.OpenDocx.Core
 {
@@ -31,6 +32,11 @@ namespace Frontforge.OpenDocx.Core
             return obj;
         }
 
+        public static BorderType SetBorderColor(this BorderType obj, string color)
+        {
+            obj.Color = color;
+            return obj;
+        }
         #endregion
     }
 }

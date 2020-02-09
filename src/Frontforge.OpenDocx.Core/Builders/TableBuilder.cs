@@ -16,9 +16,7 @@ namespace Frontforge.OpenDocx.Core.Builders
 
         #region constructors
 
-        internal TableBuilder()
-        {
-        }
+        internal TableBuilder() { }
 
         #endregion
 
@@ -67,6 +65,15 @@ namespace Frontforge.OpenDocx.Core.Builders
             });
         }
 
+        public TableBuilder CellMarginsTopBottom(Unit topBottom)
+        {
+            return this.Chain(p =>
+            {
+                p._config.CellTopMargin = topBottom;
+                p._config.CellBottomMargin = topBottom;
+            });
+        }
+
         public TableBuilder CellMargins(Unit left, Unit top, Unit bottom, Unit right)
         {
             return this.Chain(p =>
@@ -98,23 +105,52 @@ namespace Frontforge.OpenDocx.Core.Builders
             return this.Chain(p => p._config.CellSpacing = value);
         }
 
-
-        public TableBuilder TopBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single)
+        public TableBuilder TopBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single, string color = null)
         {
             return this.Chain(p => p._config.Borders.TopBorder = new TopBorder
             {
                 Val = lineStyle,
-                Size = size
+                Size = size,
+                Color = color
             });
         }
 
-        public TableBuilder BottomBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single)
+        public TableBuilder LeftBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single, string color = null)
+        {
+            return this.Chain(p => p._config.Borders.LeftBorder = new LeftBorder
+            {
+                Val = lineStyle,
+                Size = size,
+                Color = color
+            });
+        }
+
+        public TableBuilder RightBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single, string color = null)
+        {
+            return this.Chain(p => p._config.Borders.RightBorder = new RightBorder
+            {
+                Val = lineStyle,
+                Size = size,
+                Color = color
+            });
+        }
+
+        public TableBuilder BottomBorder(uint size = 1U, BorderValues lineStyle = BorderValues.Single, string color = null)
         {
             return this.Chain(p => p._config.Borders.BottomBorder = new BottomBorder
             {
                 Val = lineStyle,
-                Size = size
+                Size = size,
+                Color = color
             });
+        }
+
+        public TableBuilder AllBorders(uint size = 1U, BorderValues lineStyle = BorderValues.Single, string color = null)
+        {
+            return this.Chain(p => p.TopBorder(size, lineStyle, color)
+                .LeftBorder(size, lineStyle, color)
+                .RightBorder(size, lineStyle, color)
+                .BottomBorder(size, lineStyle, color));
         }
 
         #endregion
