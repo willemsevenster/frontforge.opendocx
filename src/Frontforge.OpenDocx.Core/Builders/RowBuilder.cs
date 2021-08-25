@@ -12,6 +12,12 @@ namespace Frontforge.OpenDocx.Core.Builders
 
         #endregion
 
+        #region constructors
+
+        internal RowBuilder() { }
+
+        #endregion
+
         #region implementation
 
         public RowBuilder EnsureColumns(int columns)
@@ -28,14 +34,6 @@ namespace Frontforge.OpenDocx.Core.Builders
                     p._config.Cells.Add(CellBuilder.EmptyCell());
                 }
             });
-        }
-
-        #endregion
-
-        #region constructors
-
-        internal RowBuilder()
-        {
         }
 
         #endregion

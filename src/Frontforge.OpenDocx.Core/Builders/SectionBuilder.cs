@@ -12,6 +12,12 @@ namespace Frontforge.OpenDocx.Core.Builders
 
         #endregion
 
+        #region constructors
+
+        internal SectionBuilder() { }
+
+        #endregion
+
         #region implementation
 
         public static implicit operator Section(SectionBuilder builder)
@@ -47,14 +53,6 @@ namespace Frontforge.OpenDocx.Core.Builders
         public SectionBuilder AddFooter(params ContentElement[] contents)
         {
             return this.Chain(p => p._config.Footer.AddRange(contents.Where(x => x != null)));
-        }
-
-        #endregion
-
-        #region constructors
-
-        internal SectionBuilder()
-        {
         }
 
         #endregion

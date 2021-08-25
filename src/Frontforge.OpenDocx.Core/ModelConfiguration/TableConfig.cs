@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Frontforge.OpenDocx.Core.Models;
+using TableProperties = DocumentFormat.OpenXml.Wordprocessing.TableProperties;
 
 namespace Frontforge.OpenDocx.Core.ModelConfiguration
 {
