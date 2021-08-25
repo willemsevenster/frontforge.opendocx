@@ -7,15 +7,7 @@ namespace Frontforge.OpenDocx.Core.Models
     public class Row
         : ContentElement
     {
-        #region instance fields
-
         private readonly RowConfig _config;
-
-        #endregion
-
-        #region implementation
-
-        #region members
 
         internal override OpenXmlElement Render(int index, bool isFirst, bool isLast)
         {
@@ -29,17 +21,9 @@ namespace Frontforge.OpenDocx.Core.Models
             return result;
         }
 
-        #endregion
-
-        #endregion
-
-        #region constructors
-
         internal Row(RowConfig config)
         {
             _config = config;
         }
-
-        #endregion
     }
 }

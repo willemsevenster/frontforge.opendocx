@@ -6,10 +6,6 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
 {
     internal class CellConfig
     {
-        #region implementation
-
-        #region members
-
         public TableCellProperties CellProperties()
         {
             var result = new TableCellProperties();
@@ -42,12 +38,6 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
         }
 
 
-        #endregion
-
-        #endregion
-
-        #region properties
-
         public bool? NoWrap { get; set; }
 
         public List<ContentElement> Contents { get; } = new List<ContentElement>();
@@ -65,7 +55,5 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
         public int ColSpan { get; set; } = 1;
 
         public TableVerticalAlignmentValues VerticalAlignment { get; set; } = TableVerticalAlignmentValues.Bottom;
-
-        #endregion
     }
 }

@@ -7,19 +7,9 @@ namespace Frontforge.OpenDocx.Core.Builders
 {
     public class ParagraphBuilder
     {
-        #region instance fields
-
         private readonly ParagraphConfig _config = new ParagraphConfig();
 
-        #endregion
-
-        #region constructors
-
         internal ParagraphBuilder() { }
-
-        #endregion
-
-        #region implementation
 
         public static implicit operator Paragraph(ParagraphBuilder builder)
         {
@@ -98,10 +88,6 @@ namespace Frontforge.OpenDocx.Core.Builders
             return this.Chain(p => p._config.Bullets = true);
         }
 
-        #endregion
-
-        #region members
-
         public ParagraphBuilder SpacingBefore(Unit value)
         {
             return this.Chain(p => p._config.SpacingBefore = value);
@@ -156,7 +142,5 @@ namespace Frontforge.OpenDocx.Core.Builders
             BottomBorder(size, lineStyle);
             return this;
         }
-
-        #endregion
     }
 }

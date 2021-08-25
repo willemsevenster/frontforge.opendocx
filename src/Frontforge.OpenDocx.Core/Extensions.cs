@@ -6,8 +6,6 @@ namespace Frontforge.OpenDocx.Core
 {
     internal static class Extensions
     {
-        #region implementation
-
         public static T CloneNode<T>(this T element, bool deep = true)
             where T : OpenXmlElement
         {
@@ -37,6 +35,5 @@ namespace Frontforge.OpenDocx.Core
             obj.Color = color;
             return obj;
         }
-        #endregion
     }
 }

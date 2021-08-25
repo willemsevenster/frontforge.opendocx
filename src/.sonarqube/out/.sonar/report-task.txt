@@ -1,0 +1,6 @@
+projectKey=willemsevenster_frontforge.opendocx
+serverUrl=https://sonarqube.frontforge.com
+serverVersion=8.9.2.46101
+dashboardUrl=https://sonarqube.frontforge.com/dashboard?id=willemsevenster_frontforge.opendocx
+ceTaskId=AXt8YkSluZdrjgWJbzM5
+ceTaskUrl=https://sonarqube.frontforge.com/api/ce/task?id=AXt8YkSluZdrjgWJbzM5

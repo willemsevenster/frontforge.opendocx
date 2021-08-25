@@ -6,22 +6,12 @@ namespace Frontforge.OpenDocx.Core.Builders
 {
     public class TextContentBuilder
     {
-        #region instance fields
-
         private readonly TextContentConfig _config = new TextContentConfig();
-
-        #endregion
-
-        #region constructors
 
         internal TextContentBuilder(string text)
         {
             _config.Value = text;
         }
-
-        #endregion
-
-        #region implementation
 
         public static implicit operator TextContent(TextContentBuilder builder)
         {
@@ -47,7 +37,5 @@ namespace Frontforge.OpenDocx.Core.Builders
         {
             return this.Chain(p => p._config.Underline = line);
         }
-
-        #endregion
     }
 }

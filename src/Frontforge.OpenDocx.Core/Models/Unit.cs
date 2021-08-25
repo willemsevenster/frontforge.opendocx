@@ -7,8 +7,6 @@ namespace Frontforge.OpenDocx.Core.Models
 {
     public class Unit
     {
-        #region implementation
-
         public static implicit operator Unit(double value)
         {
             return new Unit {Value = value};
@@ -113,10 +111,6 @@ namespace Frontforge.OpenDocx.Core.Models
             return result;
         }
 
-        #endregion
-
-        #region constructors
-
         private Unit()
         {
         }
@@ -127,16 +121,8 @@ namespace Frontforge.OpenDocx.Core.Models
             Type = type;
         }
 
-        #endregion
-
-        #region properties
-
         public double Value { get; set; }
         public UnitType Type { get; set; } = UnitType.pt;
-
-        #endregion
-
-        #region members
 
         internal T ToTableWidthType<T>()
             where T : TableWidthType, new()
@@ -161,7 +147,5 @@ namespace Frontforge.OpenDocx.Core.Models
 
             return result;
         }
-
-        #endregion
     }
 }

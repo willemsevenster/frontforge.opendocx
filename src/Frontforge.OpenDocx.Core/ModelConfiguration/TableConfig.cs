@@ -8,10 +8,6 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
 {
     internal class TableConfig
     {
-        #region implementation
-
-        #region members
-
         public TableProperties GetTableProperties()
         {
             var result = new TableProperties();
@@ -57,12 +53,6 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
             return result;
         }
 
-        #endregion
-
-        #endregion
-
-        #region properties
-
         public Unit Width { get; set; }
 
         public List<Row> Rows { get; } = new List<Row>();
@@ -75,7 +65,5 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
         public Unit CellSpacing { get; set; }
 
         public TableBorders Borders { get; } = new TableBorders();
-
-        #endregion
     }
 }

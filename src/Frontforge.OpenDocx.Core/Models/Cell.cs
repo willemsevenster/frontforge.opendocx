@@ -8,15 +8,7 @@ namespace Frontforge.OpenDocx.Core.Models
     public class Cell
         : ContentElement
     {
-        #region instance fields
-
         private readonly CellConfig _config;
-
-        #endregion
-
-        #region implementation
-
-        #region members
 
         internal override OpenXmlElement Render(int index, bool isFirst, bool isLast)
         {
@@ -34,17 +26,9 @@ namespace Frontforge.OpenDocx.Core.Models
             return result;
         }
 
-        #endregion
-
-        #endregion
-
-        #region constructors
-
         internal Cell(CellConfig config)
         {
             _config = config;
         }
-
-        #endregion
     }
 }

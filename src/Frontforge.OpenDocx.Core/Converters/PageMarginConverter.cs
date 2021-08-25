@@ -7,8 +7,6 @@ namespace Frontforge.OpenDocx.Core.Converters
 {
     internal class PageMarginConverter
     {
-        #region members
-
         public static PageMargin PageMarginFromPredefined(PredefinedPageMargins marginType)
         {
             var margins = _pageMargins(marginType);
@@ -45,7 +43,5 @@ namespace Frontforge.OpenDocx.Core.Converters
                     throw new ArgumentOutOfRangeException(nameof(marginType), marginType, null);
             }
         }
-
-        #endregion
     }
 }

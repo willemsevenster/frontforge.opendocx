@@ -13,13 +13,7 @@ namespace Frontforge.OpenDocx.Core.Models
     public class TextContent
         : IContent
     {
-        #region instance fields
-
         private readonly TextContentConfig _config;
-
-        #endregion
-
-        #region implementation
 
         public static implicit operator string(TextContent content)
         {
@@ -76,10 +70,6 @@ namespace Frontforge.OpenDocx.Core.Models
             return run;
         }
 
-        #endregion
-
-        #region constructors
-
         internal TextContent(TextContentConfig config)
         {
             _config = config ?? new TextContentConfig();
@@ -89,8 +79,5 @@ namespace Frontforge.OpenDocx.Core.Models
         {
             _config = new TextContentConfig {Value = text};
         }
-
-        #endregion
-
     }
 }

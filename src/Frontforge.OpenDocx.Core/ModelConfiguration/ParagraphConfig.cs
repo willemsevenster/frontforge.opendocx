@@ -13,8 +13,6 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
 {
     internal class ParagraphConfig
     {
-        #region properties
-
         public bool? Bold { get; set; }
 
         public Unit FontSize { get; set; }
@@ -30,10 +28,6 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
         public ParagraphBorders Borders { get; } = new ParagraphBorders();
 
         public bool? Bullets { get; set; }
-
-        #endregion
-
-        #region members
 
         public ParagraphProperties GetParagraphProperties()
         {
@@ -160,7 +154,5 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
                 }
             }
         }
-
-        #endregion
     }
 }

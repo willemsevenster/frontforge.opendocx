@@ -1,6 +1,9 @@
 # Frontforge OpenDocx
 A simple wrapper for DocumentFormat.OpenXml word processing documents (MS Word and similar).
 
+## Status
+[![Quality Gate Status](https://sonarqube.frontforge.com/api/project_badges/measure?project=willemsevenster_frontforge.opendocx&metric=alert_status)](https://sonarqube.frontforge.com/dashboard?id=willemsevenster_frontforge.opendocx)
+
 ## Overview
 Allows easier creation of OpenXML wordprocessing documents using a fluent API. This is a .Net Standard 2.0 library and depends on the DocumentFormat.OpenXml library. This library was inspired by the [ReportDotNet](https://github.com/mifopen/ReportDotNet) project on Github.
 

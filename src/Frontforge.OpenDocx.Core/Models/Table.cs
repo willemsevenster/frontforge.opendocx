@@ -6,15 +6,7 @@ namespace Frontforge.OpenDocx.Core.Models
     public class Table
         : ContentElement
     {
-        #region instance fields
-
         private readonly TableConfig _config;
-
-        #endregion
-
-        #region implementation
-
-        #region members
 
         internal override OpenXmlElement Render(int index, bool isFirst, bool isLast)
         {
@@ -28,17 +20,9 @@ namespace Frontforge.OpenDocx.Core.Models
             return result;
         }
 
-        #endregion
-
-        #endregion
-
-        #region constructors
-
         internal Table(TableConfig config)
         {
             _config = config;
         }
-
-        #endregion
     }
 }

@@ -7,8 +7,6 @@ namespace Frontforge.OpenDocx.Core
 {
     public static class ExtensionMethods
     {
-        #region implementation
-
         public static IEnumerable<Indexed<T>> AsIndexed<T>(this IEnumerable<T> values)
         {
             var enumerable = values.ToList();
@@ -43,7 +41,5 @@ namespace Frontforge.OpenDocx.Core
 
             return result.ToString();
         }
-
-        #endregion
     }
 }
