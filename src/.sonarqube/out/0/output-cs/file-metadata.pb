@@ -40,5 +40,5 @@ UC:\work\github\frontforge.opendocx\src\Frontforge.OpenDocx.Core\Models\TextCont
 NC:\work\github\frontforge.opendocx\src\Frontforge.OpenDocx.Core\Models\Unit.csutf-8[
 RC:\work\github\frontforge.opendocx\src\Frontforge.OpenDocx.Core\Models\UnitType.csutf-8X
 OC:\work\github\frontforge.opendocx\src\Frontforge.OpenDocx.Core\WordDocument.csutf-8î
-àC:\work\github\frontforge.opendocx\src\Frontforge.OpenDocx.Core\obj\Debug\netstandard2.0\.NETStandard,Version=v2.0.AssemblyAttributes.csutf-8ç
-ÅC:\work\github\frontforge.opendocx\src\Frontforge.OpenDocx.Core\obj\Debug\netstandard2.0\Frontforge.OpenDocx.Core.AssemblyInfo.csutf-8
+àC:\work\github\frontforge.opendocx\src\Frontforge.OpenDocx.Core\obj\Debug\netstandard2.1\.NETStandard,Version=v2.1.AssemblyAttributes.csutf-8ç
+ÅC:\work\github\frontforge.opendocx\src\Frontforge.OpenDocx.Core\obj\Debug\netstandard2.1\Frontforge.OpenDocx.Core.AssemblyInfo.csutf-8

@@ -5,5 +5,5 @@
   <FilesToAnalyzePath>C:\work\github\frontforge.opendocx\src\.sonarqube\conf\0\FilesToAnalyze.txt</FilesToAnalyzePath>
   <OutPath>C:\work\github\frontforge.opendocx\src\.sonarqube\out\0</OutPath>
   <ProjectType>Product</ProjectType>
-  <TargetFramework>netstandard2.0</TargetFramework>
+  <TargetFramework>netstandard2.1</TargetFramework>
 </SonarProjectConfig>

@@ -13,19 +13,14 @@ namespace Frontforge.OpenDocx.Core.Converters
 
         public static JustificationValues Convert(HorizontalAlignment alignment)
         {
-            switch (alignment)
+            return alignment switch
             {
-                case HorizontalAlignment.Left:
-                    return JustificationValues.Left;
-                case HorizontalAlignment.Center:
-                    return JustificationValues.Center;
-                case HorizontalAlignment.Right:
-                    return JustificationValues.Right;
-                case HorizontalAlignment.Justified:
-                    return JustificationValues.Both;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(alignment), alignment, null);
-            }
+                HorizontalAlignment.Left => JustificationValues.Left,
+                HorizontalAlignment.Center => JustificationValues.Center,
+                HorizontalAlignment.Right => JustificationValues.Right,
+                HorizontalAlignment.Justified => JustificationValues.Both,
+                _ => throw new ArgumentOutOfRangeException(nameof(alignment), alignment, null)
+            };
         }
     }
 }

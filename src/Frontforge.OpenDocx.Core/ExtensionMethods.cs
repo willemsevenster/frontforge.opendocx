@@ -10,7 +10,7 @@ namespace Frontforge.OpenDocx.Core
         public static IEnumerable<Indexed<T>> AsIndexed<T>(this IEnumerable<T> values)
         {
             var enumerable = values.ToList();
-            var count = enumerable.Count();
+            var count = enumerable.Count;
             return enumerable.Select((x, i) => new Indexed<T>(i, count, x));
         }
 

@@ -60,15 +60,6 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
                     NumberingLevelReference = new NumberingLevelReference {Val = 0},
                     NumberingId = new NumberingId {Val = 1}
                 };
-                //var numberingProperties = new NumberingProperties(new NumberingLevelReference() { Val = 1 });
-                //var spacingBetweenLines1 = new SpacingBetweenLines() { After = "0" };  // Get rid of space between bullets
-                //var indentation = new Indentation() { Left = "360", Hanging = "180" };  // correct indentation 
-
-                //var paragraphMarkRunProperties1 = new ParagraphMarkRunProperties(
-                //    new RunFonts() {Ascii = "Symbol", HighAnsi = "Symbol"}
-                //);
-
-                //result.Append(numberingProperties, spacingBetweenLines1, indentation, paragraphMarkRunProperties1);
             }
 
             return result;
@@ -83,17 +74,14 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
                 result.Bold = new Bold {Val = Bold};
             }
 
-            if (FontSize != null)
+            if (FontSize == null) return result;
+            
+            var mrp = new[]
             {
-                var mrp = new[]
-                {
-                    new ParagraphMarkRunProperties(
-                        new FontSize {Val = FontSize}
-                    )
-                };
+                new ParagraphMarkRunProperties(new FontSize {Val = FontSize})
+            };
 
-                result.Append(mrp.AsEnumerable());
-            }
+            result.Append(mrp.AsEnumerable());
 
             return result;
         }
@@ -104,52 +92,53 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
 
             foreach (var content in Contents)
             {
-                if (content is TextContent text)
+                switch (content)
                 {
-                    yield return text.GetRun(runProperties);
-                }
-
-                if (content is ImageContent img)
-                {
-                    yield return img.GetRun(runProperties);
-                }
-
-                if (content is CheckboxControl checkbox)
-                {
-                    var run = new Run {RunProperties = runProperties.CloneNode()};
-
-                    var cb = new CheckBox(
-                        new Checked {Val = checkbox.IsChecked ? OnOffValues.One : OnOffValues.Zero},
-                        new CheckedState {Val = "0052", Font = "Wingdings 2"},
-                        new UncheckedState {Val = "00A3", Font = "Wingdings 2"}
-                    );
-
-                    var cbSdt = new SdtBlock(
-                        new SdtProperties(
-                            new Lock {Val = LockingValues.ContentLocked},
-                            new Appearance {Val = SdtAppearance.Hidden}, cb),
-                        new SdtContentBlock(
-                            new Run(new SymbolChar
-                            {
-                                Font = "Wingdings 2",
-                                Char = checkbox.IsChecked ? "F052" : "F0A3"
-                            }))
-                    );
-
-                    run.AppendChild(cbSdt);
-
-                    yield return run;
-
-                    if (!string.IsNullOrWhiteSpace(checkbox.Label))
+                    case TextContent text:
+                        yield return text.GetRun(runProperties);
+                        break;
+                    case ImageContent img:
+                        yield return img.GetRun(runProperties);
+                        break;
+                    case CheckboxControl checkbox:
                     {
-                        yield return new Run(
-                            new Text(checkbox.Label)
-                            {
-                                Space = SpaceProcessingModeValues.Preserve
-                            })
+                        var run = new Run {RunProperties = runProperties.CloneNode()};
+
+                        var cb = new CheckBox(
+                            new Checked {Val = checkbox.IsChecked ? OnOffValues.One : OnOffValues.Zero},
+                            new CheckedState {Val = "0052", Font = "Wingdings 2"},
+                            new UncheckedState {Val = "00A3", Font = "Wingdings 2"}
+                        );
+
+                        var cbSdt = new SdtBlock(
+                            new SdtProperties(
+                                new Lock {Val = LockingValues.ContentLocked},
+                                new Appearance {Val = SdtAppearance.Hidden}, cb),
+                            new SdtContentBlock(
+                                new Run(new SymbolChar
+                                {
+                                    Font = "Wingdings 2",
+                                    Char = checkbox.IsChecked ? "F052" : "F0A3"
+                                }))
+                        );
+
+                        run.AppendChild(cbSdt);
+
+                        yield return run;
+
+                        if (!string.IsNullOrWhiteSpace(checkbox.Label))
                         {
-                            RunProperties = runProperties.CloneNode()
-                        };
+                            yield return new Run(
+                                new Text(checkbox.Label)
+                                {
+                                    Space = SpaceProcessingModeValues.Preserve
+                                })
+                            {
+                                RunProperties = runProperties.CloneNode()
+                            };
+                        }
+
+                        break;
                     }
                 }
             }

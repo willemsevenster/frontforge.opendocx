@@ -55,15 +55,6 @@ namespace Frontforge.OpenDocx.Core.Builders
             });
         }
 
-        public TableBuilder CellMarginsTopBottom(Unit topBottom)
-        {
-            return this.Chain(p =>
-            {
-                p._config.CellTopMargin = topBottom;
-                p._config.CellBottomMargin = topBottom;
-            });
-        }
-
         public TableBuilder CellMargins(Unit left, Unit top, Unit bottom, Unit right)
         {
             return this.Chain(p =>
@@ -87,6 +78,15 @@ namespace Frontforge.OpenDocx.Core.Builders
                 {
                     p._config.CellRightMargin = right;
                 }
+            });
+        }
+
+        public TableBuilder CellMarginsTopBottom(Unit topBottom)
+        {
+            return this.Chain(p =>
+            {
+                p._config.CellTopMargin = topBottom;
+                p._config.CellBottomMargin = topBottom;
             });
         }
 

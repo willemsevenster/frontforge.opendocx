@@ -12,170 +12,8 @@ namespace Frontforge.OpenDocx.Core
 {
     public abstract class WordDocument
     {
+
         private readonly WordDocumentConfig _config = new WordDocumentConfig();
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-            }
-        }
-
-        protected SectionBuilder Section()
-        {
-            return new SectionBuilder();
-        }
-
-        protected void AddImageMedia(byte[] content, string contentType, string name)
-        {
-            _config.ImageMedia.Add(new ImageContentItem
-            {
-                Name = name, Content = content, ContentType = contentType
-            });
-        }
-
-
-        protected ParagraphBuilder Par()
-        {
-            return new ParagraphBuilder();
-        }
-
-        protected ParagraphBuilder Par(string text)
-        {
-            return new ParagraphBuilder().Add(text);
-        }
-
-        protected TextContentBuilder Text(string text)
-        {
-            return new TextContentBuilder(text);
-        }
-
-        protected TextContentBuilder Break()
-        {
-            return new TextContentBuilder(null);
-        }
-
-        protected ImageContentBuilder Image(string name)
-        {
-            return new ImageContentBuilder(name);
-        }
-
-        protected ParagraphBuilder Par(string text, HorizontalAlignment alignment)
-        {
-            return new ParagraphBuilder().Alignment(alignment).Add(text);
-        }
-
-        protected ParagraphBuilder Par(params ContentElement[] contents)
-        {
-            return new ParagraphBuilder().Add(contents);
-        }
-
-        protected TableBuilder Table(params Row[] rows)
-        {
-            return new TableBuilder().Add(rows);
-        }
-
-        protected RowBuilder Row(params Cell[] cells)
-        {
-            return new RowBuilder().Add(cells);
-        }
-
-        protected CellBuilder Cell()
-        {
-            return new CellBuilder();
-        }
-
-        protected CellBuilder Cell(params ContentElement[] contents)
-        {
-            return new CellBuilder().Add(contents);
-        }
-
-        protected CellBuilder Cell(string text, bool bold = false)
-        {
-            return new CellBuilder().Add(Par(text).Bold(bold).SpacingAfter(0));
-        }
-
-        protected CellBuilder Cell(string text, HorizontalAlignment alignment, bool bold = false)
-        {
-            return new CellBuilder().Add(Par(text, alignment).Bold(bold).SpacingAfter(0));
-        }
-
-        protected CheckboxBuilder Checkbox(string text)
-        {
-            return new CheckboxBuilder().Label(text);
-        }
-
-        protected WordDocument AddSection(Section page)
-        {
-            return this.Chain(p => p._config.Sections.Add(page));
-        }
-
-        public void Save(Stream stream)
-        {
-            if (stream == null)
-            {
-                throw new ArgumentNullException(nameof(stream));
-            }
-
-            using var document = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document);
-            var mainPart = document.AddMainDocumentPart();
-
-            AddSettings(mainPart);
-            AddNumberingStyles(mainPart);
-            AddStyles(mainPart);
-            AddImages(mainPart);
-
-            foreach (var section in _config.Sections.Where(x => x != null).AsIndexed())
-            {
-                var sectionPart = section.Value.Render(section.Index, section.IsFirst, section.IsLast, mainPart);
-                new Document(sectionPart).Save(mainPart);
-            }
-
-            document.Save();
-        }
-
-        private void AddImages(MainDocumentPart mainPart)
-        {
-            if (!_config.ImageMedia.Any()) return;
-            foreach (var imageContent in _config.ImageMedia)
-            {
-                var imagePart = mainPart.AddNewPart<ImagePart>(imageContent.ContentType, imageContent.Name);
-                using var ms = new MemoryStream(imageContent.Content);
-                imagePart.FeedData(ms);
-                ms.Close();
-            }
-        }
-
-        private static void AddSettings(MainDocumentPart mainPart)
-        {
-            var settingsPart = mainPart.DocumentSettingsPart;
-
-            if (settingsPart == null)
-            {
-                settingsPart = mainPart.AddNewPart<DocumentSettingsPart>();
-
-                settingsPart.Settings = new Settings(
-                    new Compatibility(
-                        new CompatibilitySetting
-                        {
-                            Name = new EnumValue<CompatSettingNameValues>
-                                (CompatSettingNameValues.CompatibilityMode),
-                            Val = new StringValue("15"),
-                            Uri = new StringValue("http://schemas.microsoft.com/office/word")
-                        }
-                    ),
-                    new DefaultTabStop {Val = Convert.ToInt16(new Unit(0.25d, UnitType.inch).ToDxa())}
-                );
-            }
-
-            settingsPart.Settings.Save();
-        }
 
         private static void AddNumberingStyles(MainDocumentPart mainPart)
         {
@@ -236,6 +74,31 @@ namespace Frontforge.OpenDocx.Core
             );
 
             part.Numbering.Save();
+        }
+
+        private static void AddSettings(MainDocumentPart mainPart)
+        {
+            var settingsPart = mainPart.DocumentSettingsPart;
+
+            if (settingsPart == null)
+            {
+                settingsPart = mainPart.AddNewPart<DocumentSettingsPart>();
+
+                settingsPart.Settings = new Settings(
+                    new Compatibility(
+                        new CompatibilitySetting
+                        {
+                            Name = new EnumValue<CompatSettingNameValues>
+                                (CompatSettingNameValues.CompatibilityMode),
+                            Val = new StringValue("15"),
+                            Uri = new StringValue("http://schemas.microsoft.com/office/word")
+                        }
+                    ),
+                    new DefaultTabStop {Val = Convert.ToInt16(new Unit(0.25d, UnitType.inch).ToDxa())}
+                );
+            }
+
+            settingsPart.Settings.Save();
         }
 
         private static void AddStyles(MainDocumentPart mainPart)
@@ -304,6 +167,127 @@ namespace Frontforge.OpenDocx.Core
             part.Styles.Append(latent, numbering, normalStyle, listParagraphStyle);
 
             part.Styles.Save();
+        }
+
+        protected void AddImageMedia(byte[] content, string contentType, string name)
+        {
+            _config.ImageMedia.Add(new ImageContentItem
+            {
+                Name = name, Content = content, ContentType = contentType
+            });
+        }
+
+        private void AddImages(MainDocumentPart mainPart)
+        {
+            if (!_config.ImageMedia.Any()) return;
+            foreach (var imageContent in _config.ImageMedia)
+            {
+                var imagePart = mainPart.AddNewPart<ImagePart>(imageContent.ContentType, imageContent.Name);
+                using var ms = new MemoryStream(imageContent.Content);
+                imagePart.FeedData(ms);
+                ms.Close();
+            }
+        }
+
+        protected WordDocument AddSection(Section page)
+        {
+            return this.Chain(p => p._config.Sections.Add(page));
+        }
+
+        protected TextContentBuilder Break()
+        {
+            return new TextContentBuilder(null);
+        }
+
+        protected CellBuilder Cell()
+        {
+            return new CellBuilder();
+        }
+
+        protected CellBuilder Cell(params ContentElement[] contents)
+        {
+            return new CellBuilder().Add(contents);
+        }
+
+        protected CellBuilder Cell(string text, bool bold = false)
+        {
+            return new CellBuilder().Add(Par(text).Bold(bold).SpacingAfter(0));
+        }
+
+        protected CellBuilder Cell(string text, HorizontalAlignment alignment, bool bold = false)
+        {
+            return new CellBuilder().Add(Par(text, alignment).Bold(bold).SpacingAfter(0));
+        }
+
+        protected CheckboxBuilder Checkbox(string text)
+        {
+            return new CheckboxBuilder().Label(text);
+        }
+
+        protected ImageContentBuilder Image(string name)
+        {
+            return new ImageContentBuilder(name);
+        }
+        
+        protected ParagraphBuilder Par()
+        {
+            return new ParagraphBuilder();
+        }
+
+        protected ParagraphBuilder Par(string text)
+        {
+            return new ParagraphBuilder().Add(text);
+        }
+
+        protected ParagraphBuilder Par(string text, HorizontalAlignment alignment)
+        {
+            return new ParagraphBuilder().Alignment(alignment).Add(text);
+        }
+
+        protected ParagraphBuilder Par(params ContentElement[] contents)
+        {
+            return new ParagraphBuilder().Add(contents);
+        }
+
+        protected RowBuilder Row(params Cell[] cells)
+        {
+            return new RowBuilder().Add(cells);
+        }
+
+        public void Save(Stream stream)
+        {
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+
+            using var document = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document);
+            var mainPart = document.AddMainDocumentPart();
+
+            AddSettings(mainPart);
+            AddNumberingStyles(mainPart);
+            AddStyles(mainPart);
+            AddImages(mainPart);
+
+            foreach (var section in _config.Sections.Where(x => x != null).AsIndexed())
+            {
+                var sectionPart = section.Value.Render(section.Index, section.IsFirst, section.IsLast, mainPart);
+                new Document(sectionPart).Save(mainPart);
+            }
+
+            document.Save();
+        }
+
+        protected SectionBuilder Section()
+        {
+            return new SectionBuilder();
+        }
+
+        protected TableBuilder Table(params Row[] rows)
+        {
+            return new TableBuilder().Add(rows);
+        }
+
+        protected TextContentBuilder Text(string text)
+        {
+            return new TextContentBuilder(text);
         }
     }
 }

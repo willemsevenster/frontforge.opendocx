@@ -24,8 +24,8 @@ namespace Frontforge.OpenDocx.Core.Models
 
         public override string ToString()
         {
-            double result;
-            var unit = string.Empty;
+            var result = Value;
+            var unit = Enum.GetName(typeof(UnitType), Type);
 
             switch (Type)
             {
@@ -49,43 +49,14 @@ namespace Frontforge.OpenDocx.Core.Models
                     result = Value * 1440d / 2.54d;
                     unit = "cm";
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
 
-            return $"{Value}{unit}";
+            return $"{result}{unit}";
         }
-
-        //public TableWidthUnitValues ToDxaType()
-        //{
-        //    string unit = TableWidthUnitValues.;
-
-        //    switch (Type)
-        //    {
-        //        case UnitType.pt:
-        //            unit = "pt";
-        //            break;
-        //        case UnitType.pct:
-        //            unit = "pct";
-        //            break;
-        //        case UnitType.inch:
-        //            unit = "in";
-        //            break;
-        //        case UnitType.mm:
-        //            unit = "mm";
-        //            break;
-        //        case UnitType.cm:
-        //            unit = "cm";
-        //            break;
-        //        default:
-        //            throw new ArgumentOutOfRangeException();
-        //    }
-        //    return unit;
-        //}
-
+        
         internal double ToDxa()
         {
-            double result;
+            var result = Value;
 
             switch (Type)
             {
@@ -104,8 +75,6 @@ namespace Frontforge.OpenDocx.Core.Models
                 case UnitType.cm:
                     result = Value * 1440d / 2.54d;
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
 
             return result;

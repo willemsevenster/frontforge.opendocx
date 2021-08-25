@@ -7,9 +7,13 @@ namespace Frontforge.OpenDocx.Core.Converters
 {
     internal class PageMarginConverter
     {
+        protected PageMarginConverter()
+        {
+        }
+
         public static PageMargin PageMarginFromPredefined(PredefinedPageMargins marginType)
         {
-            var margins = _pageMargins(marginType);
+            var margins = PageMargins(marginType);
 
             return new PageMargin
             {
@@ -22,7 +26,7 @@ namespace Frontforge.OpenDocx.Core.Converters
             };
         }
 
-        private static (Unit left, Unit top, Unit right, Unit bottom, Unit header, Unit footer) _pageMargins(
+        private static (Unit left, Unit top, Unit right, Unit bottom, Unit header, Unit footer) PageMargins(
             PredefinedPageMargins marginType)
         {
             switch (marginType)
