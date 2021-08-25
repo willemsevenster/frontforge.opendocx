@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DocumentFormat.OpenXml.Packaging;
 using Frontforge.OpenDocx.Core.Models;
 
 namespace Frontforge.OpenDocx.Core.ModelConfiguration
@@ -10,6 +11,8 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
         #region properties
 
         public List<Section> Sections { get; } = new List<Section>();
+
+        public List<ImageContentItem> ImageMedia { get; } = new List<ImageContentItem>();
 
         #endregion
 

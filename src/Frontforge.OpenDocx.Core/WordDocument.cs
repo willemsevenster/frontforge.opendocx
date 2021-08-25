@@ -38,6 +38,15 @@ namespace Frontforge.OpenDocx.Core
             return new SectionBuilder();
         }
 
+        protected void AddImageMedia(byte[] content, string contentType, string name)
+        {
+            _config.ImageMedia.Add(new ImageContentItem
+            {
+                Name = name, Content = content, ContentType = contentType
+            });
+        }
+
+
         protected ParagraphBuilder Par()
         {
             return new ParagraphBuilder();
@@ -53,9 +62,24 @@ namespace Frontforge.OpenDocx.Core
             return new TextContentBuilder(text);
         }
 
+        protected TextContentBuilder Break()
+        {
+            return new TextContentBuilder(null);
+        }
+
+        protected ImageContentBuilder Image(string name)
+        {
+            return new ImageContentBuilder(name);
+        }
+
         protected ParagraphBuilder Par(string text, HorizontalAlignment alignment)
         {
             return new ParagraphBuilder().Alignment(alignment).Add(text);
+        }
+
+        protected ParagraphBuilder Par(params ContentElement[] contents)
+        {
+            return new ParagraphBuilder().Add(contents);
         }
 
         protected TableBuilder Table(params Row[] rows)
@@ -109,21 +133,32 @@ namespace Frontforge.OpenDocx.Core
                 throw new ArgumentNullException(nameof(stream));
             }
 
-            using (var document = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document))
+            using var document = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document);
+            var mainPart = document.AddMainDocumentPart();
+
+            AddSettings(mainPart);
+            AddNumberingStyles(mainPart);
+            AddStyles(mainPart);
+            AddImages(mainPart);
+
+            foreach (var section in _config.Sections.Where(x => x != null).AsIndexed())
             {
-                var mainPart = document.AddMainDocumentPart();
+                var sectionPart = section.Value.Render(section.Index, section.IsFirst, section.IsLast, mainPart);
+                new Document(sectionPart).Save(mainPart);
+            }
 
-                AddSettings(mainPart);
-                AddNumberingStyles(mainPart);
-                AddStyles(mainPart);
+            document.Save();
+        }
 
-                foreach (var section in _config.Sections.Where(x => x != null).AsIndexed())
-                {
-                    var sectionPart = section.Value.Render(section.Index, section.IsFirst, section.IsLast, mainPart);
-                    new Document(sectionPart).Save(mainPart);
-                }
-
-                document.Save();
+        private void AddImages(MainDocumentPart mainPart)
+        {
+            if (!_config.ImageMedia.Any()) return;
+            foreach (var imageContent in _config.ImageMedia)
+            {
+                var imagePart = mainPart.AddNewPart<ImagePart>(imageContent.ContentType, imageContent.Name);
+                using var ms = new MemoryStream(imageContent.Content);
+                imagePart.FeedData(ms);
+                ms.Close();
             }
         }
 
@@ -282,5 +317,6 @@ namespace Frontforge.OpenDocx.Core
         }
 
         #endregion
+
     }
 }

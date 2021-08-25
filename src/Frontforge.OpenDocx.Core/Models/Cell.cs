@@ -22,7 +22,11 @@ namespace Frontforge.OpenDocx.Core.Models
         {
             var result = new TableCell(_config.CellProperties());
 
-            foreach (var element in _config.Contents.Where(x => x != null).AsIndexed())
+            var elements = _config.Contents.Where(x => x != null).AsIndexed().ToList();
+
+            if (!elements.Any()) result.AppendChild(new DocumentFormat.OpenXml.Wordprocessing.Paragraph());
+
+            foreach (var element in elements)
             {
                 result.AppendChild(element.Value.Render(element.Index, element.IsFirst, element.IsLast));
             }

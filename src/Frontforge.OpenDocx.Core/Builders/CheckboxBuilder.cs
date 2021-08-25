@@ -13,9 +13,7 @@ namespace Frontforge.OpenDocx.Core.Builders
 
         #region constructors
 
-        internal CheckboxBuilder()
-        {
-        }
+        internal CheckboxBuilder() { }
 
         #endregion
 

@@ -26,6 +26,10 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
 
             result.TableCellBorders = Borders;
 
+            result.TableCellMargin = Margins;
+
+            result.Shading = BackgroundColor;
+
             result.TableCellVerticalAlignment = new TableCellVerticalAlignment
                 {Val = VerticalAlignment};
 
@@ -36,6 +40,7 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
 
             return result;
         }
+
 
         #endregion
 
@@ -50,6 +55,12 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
         public Unit Width { get; set; }
 
         public TableCellBorders Borders { get; } = new TableCellBorders();
+
+        public TableCellMargin Margins { get; } = new TableCellMargin();
+
+        public TableCell Properties { get; set; }
+
+        public Shading BackgroundColor { get; } = new Shading();
 
         public int ColSpan { get; set; } = 1;
 
