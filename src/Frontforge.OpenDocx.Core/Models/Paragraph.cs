@@ -6,24 +6,12 @@ namespace Frontforge.OpenDocx.Core.Models
     public class Paragraph
         : ContentElement
     {
-        #region instance fields
-
         private readonly ParagraphConfig _config;
-
-        #endregion
-
-        #region constructors
 
         internal Paragraph(ParagraphConfig config)
         {
             _config = config;
         }
-
-        #endregion
-
-        #region implementation
-
-        #region members
 
         internal override OpenXmlElement Render(int index, bool isFirst, bool isLast)
         {
@@ -39,9 +27,5 @@ namespace Frontforge.OpenDocx.Core.Models
 
             return result;
         }
-
-        #endregion
-
-        #endregion
     }
 }

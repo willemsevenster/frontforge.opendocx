@@ -6,8 +6,6 @@ namespace Frontforge.OpenDocx.Core.Converters
 {
     internal static class PageSizeConverter
     {
-        #region members
-
         public static PageSize PageSize(Models.PageSize pageSize = Models.PageSize.A4,
             PageOrientation orientation = PageOrientation.Portrait)
         {
@@ -54,7 +52,5 @@ namespace Frontforge.OpenDocx.Core.Converters
 
             return result;
         }
-
-        #endregion
     }
 }

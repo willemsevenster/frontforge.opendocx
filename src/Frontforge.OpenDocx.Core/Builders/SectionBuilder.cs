@@ -6,19 +6,9 @@ namespace Frontforge.OpenDocx.Core.Builders
 {
     public class SectionBuilder
     {
-        #region instance fields
-
         private readonly SectionConfig _config = new SectionConfig();
 
-        #endregion
-
-        #region constructors
-
         internal SectionBuilder() { }
-
-        #endregion
-
-        #region implementation
 
         public static implicit operator Section(SectionBuilder builder)
         {
@@ -54,7 +44,5 @@ namespace Frontforge.OpenDocx.Core.Builders
         {
             return this.Chain(p => p._config.Footer.AddRange(contents.Where(x => x != null)));
         }
-
-        #endregion
     }
 }

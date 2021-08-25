@@ -8,19 +8,9 @@ namespace Frontforge.OpenDocx.Core.Builders
 {
     public class TableBuilder
     {
-        #region instance fields
-
         private readonly TableConfig _config = new TableConfig();
 
-        #endregion
-
-        #region constructors
-
         internal TableBuilder() { }
-
-        #endregion
-
-        #region members
 
         public static implicit operator Table(TableBuilder builder)
         {
@@ -152,7 +142,5 @@ namespace Frontforge.OpenDocx.Core.Builders
                 .RightBorder(size, lineStyle, color)
                 .BottomBorder(size, lineStyle, color));
         }
-
-        #endregion
     }
 }

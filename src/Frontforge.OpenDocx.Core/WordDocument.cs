@@ -12,13 +12,7 @@ namespace Frontforge.OpenDocx.Core
 {
     public abstract class WordDocument
     {
-        #region instance fields
-
         private readonly WordDocumentConfig _config = new WordDocumentConfig();
-
-        #endregion
-
-        #region implementation
 
         public void Dispose()
         {
@@ -121,10 +115,6 @@ namespace Frontforge.OpenDocx.Core
         {
             return this.Chain(p => p._config.Sections.Add(page));
         }
-
-        #endregion
-
-        #region members
 
         public void Save(Stream stream)
         {
@@ -315,8 +305,5 @@ namespace Frontforge.OpenDocx.Core
 
             part.Styles.Save();
         }
-
-        #endregion
-
     }
 }

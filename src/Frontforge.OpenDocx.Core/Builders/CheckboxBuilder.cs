@@ -5,19 +5,9 @@ namespace Frontforge.OpenDocx.Core.Builders
 {
     public class CheckboxBuilder
     {
-        #region instance fields
-
         private readonly CheckboxControlConfig _config = new CheckboxControlConfig();
 
-        #endregion
-
-        #region constructors
-
         internal CheckboxBuilder() { }
-
-        #endregion
-
-        #region members
 
         public static implicit operator CheckboxControl(CheckboxBuilder builder)
         {
@@ -33,7 +23,5 @@ namespace Frontforge.OpenDocx.Core.Builders
         {
             return this.Chain(p => p._config.Label = value);
         }
-
-        #endregion
     }
 }

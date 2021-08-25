@@ -7,28 +7,14 @@ namespace Frontforge.OpenDocx.Core.Builders
 {
     public class CellBuilder
     {
-        #region instance fields
-
         private readonly CellConfig _config = new CellConfig();
 
-        #endregion
-
-        #region constructors
-
         internal CellBuilder() { }
-
-        #endregion
-
-        #region implementation
 
         internal static CellBuilder EmptyCell()
         {
             return new CellBuilder().Add(new ParagraphBuilder().SpacingBefore(0).SpacingAfter(0));
         }
-
-        #endregion
-
-        #region members
 
         public static implicit operator Cell(CellBuilder builder)
         {
@@ -117,7 +103,5 @@ namespace Frontforge.OpenDocx.Core.Builders
         {
             return this.Chain(p => p._config.ColSpan = colspan);
         }
-
-        #endregion
     }
 }

@@ -6,19 +6,9 @@ namespace Frontforge.OpenDocx.Core.Builders
 {
     public class RowBuilder
     {
-        #region instance fields
-
         private readonly RowConfig _config = new RowConfig();
 
-        #endregion
-
-        #region constructors
-
         internal RowBuilder() { }
-
-        #endregion
-
-        #region implementation
 
         public RowBuilder EnsureColumns(int columns)
         {
@@ -36,10 +26,6 @@ namespace Frontforge.OpenDocx.Core.Builders
             });
         }
 
-        #endregion
-
-        #region members
-
         public static implicit operator Row(RowBuilder builder)
         {
             return new Row(builder._config);
@@ -56,7 +42,5 @@ namespace Frontforge.OpenDocx.Core.Builders
                 }
             });
         }
-
-        #endregion
     }
 }

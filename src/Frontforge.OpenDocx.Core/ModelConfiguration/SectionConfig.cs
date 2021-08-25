@@ -10,8 +10,6 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
 {
     internal class SectionConfig
     {
-        #region properties
-
         public PageSize PageSize { get; set; } = PageSize.A4;
 
         public PredefinedPageMargins PageMargins { get; set; } = PredefinedPageMargins.Normal;
@@ -23,10 +21,6 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
         public List<ContentElement> Header { get; } = new List<ContentElement>();
 
         public List<ContentElement> Footer { get; } = new List<ContentElement>();
-
-        #endregion
-
-        #region members
 
         internal SectionProperties SectionProperties(MainDocumentPart mainPart)
         {
@@ -71,7 +65,5 @@ namespace Frontforge.OpenDocx.Core.ModelConfiguration
 
             footerPart.Footer.Save();
         }
-
-        #endregion
     }
 }

@@ -6,8 +6,6 @@ namespace Frontforge.OpenDocx.Core.Converters
 {
     internal static class AlignmentConverter
     {
-        #region members
-
         public static Justification CreateJustification(HorizontalAlignment alignment)
         {
             return new Justification {Val = Convert(alignment)};
@@ -29,7 +27,5 @@ namespace Frontforge.OpenDocx.Core.Converters
                     throw new ArgumentOutOfRangeException(nameof(alignment), alignment, null);
             }
         }
-
-        #endregion
     }
 }
